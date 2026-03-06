@@ -11,6 +11,7 @@ One script to go from zero to a fully secured, multi-agent AI assistant on Disco
 - **Discord integration** — Bot bound to your server with channel-per-agent routing
 - **Env-based secrets** — All API keys in `.env`, never in config files
 - **Automated security audits** — Sentinel agent runs scheduled hardening checks
+- **OCTAVE protocol** — Structured AI communication with 3-20x token compression (optional)
 
 ## Quick Start
 
@@ -31,7 +32,8 @@ The setup wizard will:
 2. Create your `.env` file (gitignored, never committed)
 3. Generate `openclaw.json` with `${VAR}` references to your `.env`
 4. Create agent workspaces with security rules pre-baked
-5. Start the gateway
+5. Optionally install OCTAVE MCP server for structured document compression
+6. Start the gateway
 
 ## Configuration Tiers
 
@@ -64,7 +66,8 @@ clawdboss/
 │       └── security/
 └── docs/
     ├── security.md             # Security architecture overview
-    └── customization.md        # How to customize your setup
+    ├── customization.md        # How to customize your setup
+    └── octave.md               # OCTAVE protocol guide
 ```
 
 ## Security

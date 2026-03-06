@@ -741,6 +741,70 @@ open(sys.argv[2], 'w').write(content)
 }
 
 # ============================================================
+# Install OCTAVE MCP server
+# ============================================================
+
+install_octave() {
+  echo ""
+  echo -e "${BOLD}--- OCTAVE Protocol (Optional) ---${NC}"
+  echo ""
+  info "OCTAVE is a structured document format for LLM communication."
+  info "It provides 3-20x token compression, schema validation, and"
+  info "deterministic artifacts for multi-agent handoffs and audit trails."
+  echo ""
+  ask "Install OCTAVE MCP server? [Y/n]"
+  read -r INSTALL_OCTAVE
+  INSTALL_OCTAVE="${INSTALL_OCTAVE:-Y}"
+
+  if [[ ! "$INSTALL_OCTAVE" =~ ^[Yy] ]]; then
+    info "Skipping OCTAVE installation."
+    return
+  fi
+
+  # Check for uv (preferred) or python3 venv support
+  local OCTAVE_VENV="$HOME/.octave-venv"
+
+  if command -v uv &>/dev/null; then
+    info "Installing OCTAVE via uv..."
+    uv venv --clear "$OCTAVE_VENV" 2>/dev/null
+    source "$OCTAVE_VENV/bin/activate" 2>/dev/null || true
+    uv pip install octave-mcp 2>&1 | tail -1
+  elif python3 -m venv --help &>/dev/null 2>&1; then
+    info "Installing OCTAVE via python3 venv..."
+    python3 -m venv "$OCTAVE_VENV"
+    "$OCTAVE_VENV/bin/pip" install --quiet octave-mcp 2>&1
+  else
+    warn "Cannot install OCTAVE — neither uv nor python3-venv found."
+    warn "Install manually: uv venv ~/.octave-venv && uv pip install octave-mcp"
+    return
+  fi
+
+  # Verify installation
+  if [ ! -f "$OCTAVE_VENV/bin/octave-mcp-server" ]; then
+    warn "OCTAVE installation failed — binary not found. Skipping."
+    return
+  fi
+
+  # Add to mcporter config
+  if command -v mcporter &>/dev/null; then
+    local MCPORTER_CONFIG="$OPENCLAW_DIR/workspace/config/mcporter.json"
+    mkdir -p "$(dirname "$MCPORTER_CONFIG")"
+
+    mcporter config add octave \
+      --command "$OCTAVE_VENV/bin/octave-mcp-server" \
+      --transport stdio \
+      --config "$MCPORTER_CONFIG" 2>/dev/null \
+    && success "OCTAVE MCP server registered with mcporter" \
+    || warn "Could not register with mcporter — add manually later"
+  else
+    warn "mcporter not found — register OCTAVE manually after install"
+    info "  mcporter config add octave --command $OCTAVE_VENV/bin/octave-mcp-server --transport stdio"
+  fi
+
+  success "OCTAVE installed: $OCTAVE_VENV/bin/octave-mcp-server"
+}
+
+# ============================================================
 # Summary
 # ============================================================
 
@@ -819,6 +883,7 @@ main() {
   generate_env
   generate_config
   deploy_workspaces
+  install_octave
   show_summary
 }
 
