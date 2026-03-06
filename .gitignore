@@ -1,0 +1,17 @@
+# Secrets — NEVER commit this file
+.env
+*.env.local
+
+# OpenClaw generated config (contains ${VAR} refs but still sensitive)
+# Uncomment if you want to gitignore the generated config too:
+# openclaw.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Logs
+*.log
