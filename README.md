@@ -30,17 +30,36 @@ One script to go from zero to a fully secured, multi-agent AI assistant on Disco
 
 ## Quick Start
 
+### Ubuntu VPS (Fresh Install)
+
+SSH into your server and run:
+
 ```bash
-# 1. Clone this repo
-git clone git@github.com:NanoFlow-io/clawdboss.git
+# 1. Install Node.js 22
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# 2. Install build tools (needed for some npm packages)
+sudo apt-get install -y build-essential git python3 python3-pip
+
+# 3. Clone Clawdboss
+git clone https://github.com/NanoFlow-io/clawdboss.git
 cd clawdboss
 
-# 2. Install OpenClaw (if not already installed)
-curl -fsSL https://openclaw.ai/install.sh | bash
-
-# 3. Run the setup wizard
+# 4. Run the setup wizard
 ./setup.sh
 ```
+
+That's it. The wizard handles everything else — OpenClaw installation, API keys, agent creation, optional tools.
+
+### What You'll Need Ready
+
+- **An LLM provider** — one of:
+  - [GitHub Copilot](https://github.com/features/copilot) subscription (cheapest — uses copilot-api proxy)
+  - [OpenAI API key](https://platform.openai.com/api-keys) (sk-...)
+  - [Anthropic API key](https://console.anthropic.com/) (sk-ant-...)
+- **A Discord bot token** — [create one here](https://discord.com/developers/applications) (if using Discord interface)
+- **Optional:** Brave Search API key, ElevenLabs API key, OpenAI key for image gen/whisper
 
 The setup wizard will:
 1. Ask about **you** — name, role, what you do, how you want to use your agent
@@ -154,11 +173,13 @@ See [docs/recommended-tools.md](docs/recommended-tools.md) for detailed install 
 
 ## Requirements
 
-- Node.js 22+
+- Ubuntu 22.04+ (or any Linux with bash)
+- Node.js 22+ (setup wizard installs OpenClaw automatically)
+- 2GB+ RAM recommended (1GB works for Solo tier)
 - A Discord bot token ([create one here](https://discord.com/developers/applications))
 - An LLM provider (GitHub Copilot, OpenAI, Anthropic, or others)
 - Optional: Brave Search API key, ElevenLabs API key
 
 ## License
 
-Private — NanoFlow internal use only.
+MIT — see [LICENSE](LICENSE) for details.
