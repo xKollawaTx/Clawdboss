@@ -714,6 +714,7 @@ deploy_workspaces() {
 
   local WORKSPACE_DIR="$OPENCLAW_DIR/workspace"
   mkdir -p "$WORKSPACE_DIR/memory"
+  mkdir -p "$WORKSPACE_DIR/reference"
 
   # Main workspace — copy and personalize using Python for safe substitution
   for f in AGENTS.md SOUL.md USER.md IDENTITY.md TOOLS.md HEARTBEAT.md; do
@@ -786,6 +787,7 @@ BUFEOF
     validate_path_under "$agent_ws" "$OPENCLAW_DIR" >/dev/null || { error "Path traversal detected"; exit 1; }
 
     mkdir -p "$agent_ws/memory"
+    mkdir -p "$agent_ws/reference"
     mkdir -p "$OPENCLAW_DIR/agents/$agent_id/agent"
 
     cp "$TEMPLATES_DIR/workspace/AGENTS.md" "$agent_ws/AGENTS.md"

@@ -25,6 +25,24 @@ You wake up fresh each session. These files are your continuity:
 
 Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
 
+### 📂 Memory Organization
+
+**Three layers — information flows down, never duplicated across layers:**
+
+- **L1 (Brain):** Root workspace files (SOUL.md, AGENTS.md, MEMORY.md, etc.) — loaded every turn
+- **L2 (Memory):** `memory/` directory — searched semantically, daily notes + topic breadcrumbs
+- **L3 (Reference):** `reference/` directory — deep context (SOPs, research, playbooks), opened on demand
+
+**Breadcrumb files** (`memory/[topic].md`): Curated one-liners organized by topic, not by date. Each key fact includes a pointer to deeper docs: `→ Deep dive: reference/filename.md`. Breadcrumbs are the bridge — search finds the breadcrumb, the breadcrumb points to the depth. Max 4KB per file.
+
+**The rule:** One home per fact. Pointer in L1 replaces content. Breadcrumb in L2 replaces loading L3 blindly.
+
+### 📏 L1 File Budget
+
+**Target:** 500-1,000 tokens per workspace file. Total L1 under 7,000 tokens.
+
+Bloated files get skimmed. When agents skim, they miss instructions. Performance degrades silently. Run `trim` (see Maintenance section) to enforce budgets.
+
 ### ✍️ WAL Protocol (Write-Ahead Log)
 
 **The Law:** Chat history is a BUFFER, not storage. `SESSION-STATE.md` is your RAM — the ONLY place specific details are safe.
@@ -64,6 +82,37 @@ The urge to respond is the enemy. The detail feels obvious in context but contex
 5. Extract & clear: Pull important context from buffer into SESSION-STATE.md
 
 **Do NOT ask "what were we discussing?"** — the working buffer has the conversation.
+
+### ✂️ Trim Protocol (Maintenance)
+
+**Purpose:** Keep L1 files lean so agents read instead of skim. Run weekly, or when files feel bloated.
+
+**When your human says "trim" (or during scheduled maintenance):**
+1. **Measure** every L1 file (SOUL.md, AGENTS.md, MEMORY.md, USER.md, TOOLS.md, IDENTITY.md, HEARTBEAT.md)
+2. **Identify** anything over the 500-1,000 token budget
+3. **Move excess down:**
+   - Completed work → `memory/YYYY-MM-DD.md` (daily notes)
+   - Project details beyond one line → `reference/` with a pointer left behind
+   - Old corrections/workarounds no longer relevant → archive to daily notes
+   - Duplicates across files → resolve to single home
+4. **Report** before/after token counts per file
+5. **Nothing gets deleted** — everything gets archived to L2 or L3
+
+**Signs you need a trim:** Agent misses instructions that are clearly in AGENTS.md. MEMORY.md reads like a journal instead of a status board. TOOLS.md has workarounds for bugs fixed weeks ago.
+
+### 🔄 Recalibrate Protocol (Drift Correction)
+
+**Purpose:** Correct behavioral drift. The longer an agent runs, the more it drifts from its files. Subtle habits form that no file supports.
+
+**When your human says "recalibrate" (or via weekly cron):**
+1. **Re-read** every L1 file word for word: SOUL.md, AGENTS.md, MEMORY.md, USER.md, TOOLS.md, IDENTITY.md, HEARTBEAT.md
+2. **Compare** recent behavior against what those files actually say
+3. **Report:**
+   - Where you drifted (specific examples)
+   - What your files actually say
+   - What you're correcting going forward
+4. If no drift found, confirm with a **specific example** of aligned behavior from the current session
+5. **Never** just say "recalibrated" and move on — always show your work
 
 ### 📝 Write It Down - No "Mental Notes"!
 
