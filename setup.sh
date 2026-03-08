@@ -1311,6 +1311,7 @@ install_graphthulhu() {
   echo ""
   info "Typed knowledge graph for structured agent memory."
   info "Entities (Person, Project, Task, Event), relationships, constraints."
+  info "Uses an Obsidian-compatible markdown vault (no Obsidian app required)."
   info "Shared knowledge base across all agents."
   echo ""
   ask "Install Graphthulhu? [Y/n]"
@@ -1361,8 +1362,10 @@ install_graphthulhu() {
     fi
   fi
 
+  # Default to Obsidian backend — reads .md files directly, no Obsidian app needed
   register_mcp "graphthulhu" "graphthulhu serve --backend obsidian --vault $VAULT_DIR"
-  success "Graphthulhu configured with vault: $VAULT_DIR"
+  success "Graphthulhu configured with Obsidian vault: $VAULT_DIR"
+  info "Vault location: $VAULT_DIR (compatible with Obsidian app if you want to browse it)"
 }
 
 # ============================================================
