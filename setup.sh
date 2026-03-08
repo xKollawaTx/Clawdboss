@@ -306,9 +306,33 @@ collect_agent_info() {
   read -r AGENT_PRONOUNS
   AGENT_PRONOUNS="${AGENT_PRONOUNS:-they/them}"
 
-  ask "Agent emoji (e.g., 🤖, 🦊, ⚡)"
-  read -r AGENT_EMOJI
-  AGENT_EMOJI="${AGENT_EMOJI:-🤖}"
+  echo ""
+  echo -e "${BOLD}Pick an emoji for your agent:${NC}"
+  echo ""
+  echo "  1) 🤖  Robot        5) 🦊  Fox          9) 🎯  Bullseye"
+  echo "  2) ⚡  Lightning    6) 🧠  Brain       10) 🔥  Fire"
+  echo "  3) 🦾  Mech arm     7) 🎤  Microphone  11) 🌟  Star"
+  echo "  4) 🚀  Rocket       8) 💡  Lightbulb   12) 🐙  Octopus"
+  echo ""
+  ask "Choose emoji [1-12, or type your own]"
+  read -r EMOJI_CHOICE
+  EMOJI_CHOICE="${EMOJI_CHOICE:-1}"
+
+  case "$EMOJI_CHOICE" in
+    1) AGENT_EMOJI="🤖" ;;
+    2) AGENT_EMOJI="⚡" ;;
+    3) AGENT_EMOJI="🦾" ;;
+    4) AGENT_EMOJI="🚀" ;;
+    5) AGENT_EMOJI="🦊" ;;
+    6) AGENT_EMOJI="🧠" ;;
+    7) AGENT_EMOJI="🎤" ;;
+    8) AGENT_EMOJI="💡" ;;
+    9) AGENT_EMOJI="🎯" ;;
+    10) AGENT_EMOJI="🔥" ;;
+    11) AGENT_EMOJI="🌟" ;;
+    12) AGENT_EMOJI="🐙" ;;
+    *) AGENT_EMOJI="$EMOJI_CHOICE" ;;  # Let them paste their own
+  esac
 
   echo ""
   echo -e "${BOLD}What vibe should your agent have?${NC}"
