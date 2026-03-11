@@ -11,6 +11,7 @@ One script to go from zero to a fully secured, multi-agent AI assistant on Disco
 - **WAL Protocol** — Write-Ahead Log for corrections, decisions, and details that survive context loss
 - **Working Buffer** — Danger zone logging to survive context compaction without losing work
 - **Discord integration** — Bot bound to your server with channel-per-agent routing
+- **Telegram integration** — Chat via Telegram bot with DM and group support
 - **Web dashboard** — ClawSuite Console with chat, file browser, terminal, cost analytics (optional)
 - **Env-based secrets** — All API keys in `.env`, never in config files
 - **Automated security audits** — Security agent runs scheduled hardening checks
@@ -53,12 +54,13 @@ That's it. The wizard auto-installs all dependencies (Node.js 22, Python, git, b
   - [OpenAI API key](https://platform.openai.com/api-keys) (sk-...)
   - [Anthropic API key](https://console.anthropic.com/) (sk-ant-...)
 - **A Discord bot token** — [create one here](https://discord.com/developers/applications) (if using Discord interface)
+- **A Telegram bot token** — [create one via @BotFather](https://t.me/BotFather) (if using Telegram interface)
 - **Optional:** Brave Search API key, ElevenLabs API key, OpenAI key for image gen/whisper
 
 The setup wizard will:
 1. Ask about **you** — name, role, what you do, how you want to use your agent
 2. Ask about **your agent** — name, personality, mission, domain expertise
-3. Prompt for your API keys and Discord credentials
+3. Prompt for your API keys and Discord/Telegram credentials
 4. Create your `.env` file (gitignored, never committed)
 5. Generate `openclaw.json` with `${VAR}` references to your `.env`
 6. Create agent workspaces with security rules + WAL Protocol pre-baked
@@ -232,7 +234,7 @@ openclaw hybrid-mem prune           # Remove expired memories
 - Ubuntu 22.04+ (or any Linux with bash)
 - Node.js 22+ (setup wizard installs OpenClaw automatically)
 - 2GB+ RAM recommended (1GB works for Solo tier)
-- A Discord bot token ([create one here](https://discord.com/developers/applications))
+- A Discord bot token ([create one here](https://discord.com/developers/applications)) and/or Telegram bot token (from [@BotFather](https://t.me/BotFather))
 - An LLM provider (GitHub Copilot, OpenAI, Anthropic, or others)
 - Optional: Brave Search API key, ElevenLabs API key
 
