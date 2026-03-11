@@ -33,13 +33,9 @@ banner() {
   echo -e "${CYAN}  ╚██████╗███████╗██║  ██║╚███╔███╔╝██████╔╝██████╔╝╚██████╔╝███████║███████║${NC}"
   echo -e "${CYAN}   ╚═════╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝${NC}"
   echo ""
-  echo -e "  Deploy a fully configured AI agent team to any VPS in under 15 minutes."
-  echo -e "  ${BOLD}Multi-agent • Discord/ClawSuite • Memory • Security • On-boarding${NC}"
+  echo -e "  Deploy a hardened, multi-agent OpenClaw setup to any machine in minutes."
+  echo -e "  ${BOLD}Multi-agent • Discord/Telegram/Console • Memory • Security • Skills${NC}"
   echo ""
-  echo -e "  Plus a curated \"best of OpenClaw\" series of skills, plugins, APIs and"
-  echo -e "  security hardening to have your OpenClaw instance firing out of the box."
-  echo ""
-  echo -e "  Brought to you by the team at ${BOLD}NanoFlow.io${NC} • Enjoy your OpenClaw!"
   echo -e "  ${BLUE}github.com/NanoFlow-io/clawdboss${NC}"
   echo ""
 }
@@ -1291,7 +1287,8 @@ BUFEOF
     local agent_type="$2"  # comms, research, security
 
     # Use bash parameter expansion for lowercase (no external commands)
-    local agent_id="${agent_name,,}"
+    local agent_id
+    agent_id="$(echo "$agent_name" | tr '[:upper:]' '[:lower:]')"
     # Replace spaces with hyphens
     agent_id="${agent_id// /-}"
 
